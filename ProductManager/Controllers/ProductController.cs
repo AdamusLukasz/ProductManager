@@ -21,5 +21,11 @@ namespace ProductManager.Controllers
             var id = _productService.CreateProduct(dto);
             return Created($"/api/products/{id}", null);
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<ProductDto>> GetAll()
+        {
+            var products = _productService.GetAll();
+            return Ok(products);
+        }
     }
 }
