@@ -1,15 +1,25 @@
-﻿using ProductManager.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using ProductManager.Entities;
+using ProductManager.Models;
+using ProductManager.Services;
 
 namespace ProductManager.Controllers
 {
-    public class ProductController
+    [Route("api/products")]
+    [ApiController]
+    public class ProductController : ControllerBase
     {
-        interface IProductController
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService productService)
         {
-            public IEnumerable<Product> GetProducts();
-            public void GetProductId(int id);
-
+            _productService = productService;
         }
-
+        [HttpPost]
+        public ActionResult CreateProduct([FromBody] CreateProductDto dto)
+        {
+            var id = _productService.CreateProduct(dto);
+            return Created($"/api/products/{id}", null);
+        }
     }
 }

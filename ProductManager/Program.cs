@@ -1,8 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using ProductManager.Entities;
+using ProductManager.Services;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddDbContext<ProductDbContext>();
+builder.Services.AddScoped<IProductService, ProductService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
