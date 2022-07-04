@@ -7,6 +7,9 @@ namespace ProductManager.Services
     {
         public int CreateProduct(CreateProductDto dto);
         public IEnumerable<ProductDto> GetAll();
+        public ProductDto GetById(int id);
+    
+
     }
     public class ProductService : IProductService
     {
@@ -44,6 +47,20 @@ namespace ProductManager.Services
                 });
 
             return products;
+        }
+        public ProductDto GetById(int id)
+        {
+            var product = _dbContext.Products.Select(x => new ProductDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Number = x.Number,
+                Description = x.Description,
+                Quantity = x.Quantity,
+                Price = x.Price
+            }).FirstOrDefault(d => d.Id == id);
+
+            return product;
         }
     }
 }
