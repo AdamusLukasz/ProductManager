@@ -28,7 +28,7 @@ namespace ProductManager.Controllers
             return Ok(products);
         }
         [HttpGet("{id}")]
-        public ActionResult<ProductDto> GetById([FromRoute] int id)
+        public ActionResult<ProductDto> GetById([FromRoute] Guid id)
         {
             var product = _productService.GetById(id);
             return product;

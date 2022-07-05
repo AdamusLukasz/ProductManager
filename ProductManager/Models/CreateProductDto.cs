@@ -4,7 +4,7 @@ namespace ProductManager.Models
 {
     public class CreateProductDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [MaxLength(100)]
         public string Name { get; set; } = String.Empty;

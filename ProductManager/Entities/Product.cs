@@ -5,7 +5,7 @@ namespace ProductManager.Entities
     public class Product
     {
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         [MaxLength(100)]
         public string Name { get; set; } = String.Empty;
