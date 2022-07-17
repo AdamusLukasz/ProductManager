@@ -9,6 +9,7 @@ namespace ProductManager.Services
         public IEnumerable<ProductDto> GetAll();
         public ProductDto GetById(Guid id);
         public void UpdateProduct(Guid id, UpdateProductDto dto);
+        public void DeleteProduct(Guid id);
     }
     public class ProductService : IProductService
     {
@@ -31,6 +32,15 @@ namespace ProductManager.Services
             _dbContext.SaveChanges();
             return product.Id;
         }
+
+        public void DeleteProduct(Guid id)
+        {
+            var product = _dbContext.Products.FirstOrDefault(x => x.Id == id);
+
+            _dbContext.Products.Remove(product);
+            _dbContext.SaveChanges();
+        }
+
         public IEnumerable<ProductDto> GetAll()
         {
             var products = _dbContext

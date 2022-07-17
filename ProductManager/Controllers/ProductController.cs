@@ -37,8 +37,13 @@ namespace ProductManager.Controllers
         public ActionResult UpdateProduct([FromBody] UpdateProductDto dto, [FromRoute] Guid id)
         {
             _productService.UpdateProduct(id, dto);
-
             return Ok();
+        }
+        [HttpDelete("{id}")]
+        public ActionResult DeleteProduct([FromRoute] Guid id)
+        {
+            _productService.DeleteProduct(id);
+            return NoContent();
         }
     }
 }
