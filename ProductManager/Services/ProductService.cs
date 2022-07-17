@@ -5,11 +5,10 @@ namespace ProductManager.Services
 {
     public interface IProductService
     {
-        public int CreateProduct(CreateProductDto dto);
+        public Guid CreateProduct(CreateProductDto dto);
         public IEnumerable<ProductDto> GetAll();
-        public ProductDto GetById(int id);
-    
-
+        public ProductDto GetById(Guid id);
+        public void UpdateProduct(Guid id, UpdateProductDto dto);
     }
     public class ProductService : IProductService
     {
@@ -18,7 +17,7 @@ namespace ProductManager.Services
         {
             _dbContext = dbContext;
         }
-        public int CreateProduct(CreateProductDto dto)
+        public Guid CreateProduct(CreateProductDto dto)
         {
             var product = new Product()
             {
@@ -48,7 +47,7 @@ namespace ProductManager.Services
 
             return products;
         }
-        public ProductDto GetById(int id)
+        public ProductDto GetById(Guid id)
         {
             var product = _dbContext.Products.Select(x => new ProductDto()
             {
@@ -59,8 +58,16 @@ namespace ProductManager.Services
                 Quantity = x.Quantity,
                 Price = x.Price
             }).FirstOrDefault(d => d.Id == id);
-
             return product;
+        }
+        public void UpdateProduct(Guid id, UpdateProductDto dto)
+        {
+            var product = _dbContext.Products.FirstOrDefault(x => x.Id == id);
+
+            product.Quantity = dto.Quantity;
+            product.Description = dto.Description;
+
+            _dbContext.SaveChanges();
         }
     }
 }
