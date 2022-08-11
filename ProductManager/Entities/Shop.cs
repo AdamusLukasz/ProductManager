@@ -6,6 +6,5 @@
         public string? Name { get; set; }
         public int MyProperty { get; set; }
         public Address? Address { get; set; }
-        public int AddressId { get; set; }
     }
 }

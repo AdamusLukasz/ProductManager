@@ -12,6 +12,8 @@ namespace ProductManager.Entities
             _configuration = configuration;
         }
         public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Shop> Shops { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,9 +34,11 @@ namespace ProductManager.Entities
                 mb.Property(x => x.Description).HasMaxLength(200);
                 mb.Property(x => x.Name).HasMaxLength(100);
             });
-
+            modelBuilder.Entity<Shop>(mb =>
+            {
+                mb.HasOne(x => x.Address).WithOne(y => y.Shop).HasForeignKey<Address>(z => z.ShopId);
+            });
         }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(_configuration.GetConnectionString("ProductManagerDbConnectionString"));

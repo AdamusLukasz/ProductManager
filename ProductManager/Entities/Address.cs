@@ -7,5 +7,7 @@
         public string? Street { get; set; }
         public string? PostalCode { get; set; }
         public Shop? Shop { get; set; }
+        public int ShopId { get; set; }
+
     }
 }
