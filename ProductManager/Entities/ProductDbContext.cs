@@ -5,8 +5,11 @@ namespace ProductManager.Entities
 {
     public class ProductDbContext : DbContext
     {
-        protected readonly IConfiguration _configuration;
+        protected readonly IConfiguration _configuration = null!;
+        public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
+        {
 
+        }
         public ProductDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -39,10 +42,5 @@ namespace ProductManager.Entities
                 mb.HasOne(x => x.Address).WithOne(y => y.Shop).HasForeignKey<Address>(z => z.ShopId);
             });
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("ProductManagerDbConnectionString"));
-        }
     }
-
 }
