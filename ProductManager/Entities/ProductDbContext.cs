@@ -5,14 +5,9 @@ namespace ProductManager.Entities
 {
     public class ProductDbContext : DbContext
     {
-        protected readonly IConfiguration _configuration = null!;
         public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
         {
 
-        }
-        public ProductDbContext(IConfiguration configuration)
-        {
-            _configuration = configuration;
         }
         public DbSet<Product> Products { get; set; } = null!;
         public DbSet<Shop> Shops { get; set; } = null!;
