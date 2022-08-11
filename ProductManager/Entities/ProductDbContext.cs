@@ -11,7 +11,7 @@ namespace ProductManager.Entities
         {
             _configuration = configuration;
         }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
