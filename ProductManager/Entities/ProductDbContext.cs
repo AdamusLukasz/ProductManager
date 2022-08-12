@@ -21,20 +21,9 @@ namespace ProductManager.Entities
                 mb.Property(x => x.Description).HasMaxLength(200);
                 mb.Property(x => x.Price).HasColumnType("decimal(5,2)");
             });
-            modelBuilder.Entity<CreateProductDto>(mb =>
+            modelBuilder.Entity<Address>(mb =>
             {
-                mb.Property(x => x.Name).IsRequired();
-                mb.Property(x => x.Price).IsRequired();
-            });
-            modelBuilder.Entity<UpdateProductDto>(mb =>
-            {
-                mb.Property(x => x.Id).IsRequired();
-                mb.Property(x => x.Description).HasMaxLength(200);
-                mb.Property(x => x.Name).HasMaxLength(100);
-            });
-            modelBuilder.Entity<Shop>(mb =>
-            {
-                mb.HasOne(x => x.Address).WithOne(y => y.Shop).HasForeignKey<Address>(z => z.ShopId);
+                mb.HasOne(x => x.Shop).WithOne(y => y.Address).HasForeignKey<Shop>(z => z.AddressId);
             });
         }
     }

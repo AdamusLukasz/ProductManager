@@ -1,11 +1,11 @@
-﻿namespace ProductManager.Entities
+﻿namespace ProductManager.Models
 {
-    public class Address
+    public class ShopDto
     {
         public int Id { get; set; }
+        public string? Name { get; set; }
         public string? City { get; set; }
         public string? Street { get; set; }
         public string? PostalCode { get; set; }
-        public virtual Shop? Shop { get; set; }
     }
 }
