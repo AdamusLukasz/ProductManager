@@ -6,5 +6,6 @@
         public string? Name { get; set; }
         public virtual Address? Address { get; set; }
         public int AddressId { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
     }
 }

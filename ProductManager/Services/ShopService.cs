@@ -29,6 +29,7 @@ namespace ProductManager.Services
             var shops = _dbContext
                 .Shops
                 .Include(x => x.Address)
+                .Include(x => x.Products)
                 .Select(s => new ShopDto()
                 {
                     Id = s.Id,
@@ -36,6 +37,8 @@ namespace ProductManager.Services
                     PostalCode = s.Address.PostalCode,
                     Street = s.Address.Street,
                     City = s.Address.City,
+                    Products = s.Products.Select(y => new ProductDto 
+                    { Id = y.Id, Name = y.Name, Number = y.Number, Description = y.Description, Quantity = y.Quantity, Price = y.Price }).ToList()
                 });
             if (shops is null) throw new Exception("Not Found.");
             return shops;

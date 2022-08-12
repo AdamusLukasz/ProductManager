@@ -5,11 +5,11 @@ namespace ProductManager.Services
 {
     public interface IProductService
     {
-        public Guid CreateProduct(CreateProductDto dto);
-        public IEnumerable<ProductDto> GetAll();
-        public ProductDto GetById(Guid id);
-        public void UpdateProduct(Guid id, UpdateProductDto dto);
-        public void DeleteProduct(Guid id);
+        Guid CreateProduct(CreateProductDto dto);
+        IEnumerable<ProductDto> GetAll();
+        ProductDto GetById(Guid id);
+        void UpdateProduct(Guid id, UpdateProductDto dto);
+        void DeleteProduct(Guid id);
     }
     public class ProductService : IProductService
     {
@@ -21,7 +21,8 @@ namespace ProductManager.Services
         public Guid CreateProduct(CreateProductDto dto)
         {
             var product = new Product()
-            {
+            {   
+                ShopId = dto.ShopId,
                 Name = dto.Name,
                 Number = dto.Number,
                 Quantity = dto.Quantity,
