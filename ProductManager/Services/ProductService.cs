@@ -36,6 +36,7 @@ namespace ProductManager.Services
         public void DeleteProduct(Guid id)
         {
             var product = _dbContext.Products.FirstOrDefault(x => x.Id == id);
+            if (product is null) throw new Exception("Not Found.");
 
             _dbContext.Products.Remove(product);
             _dbContext.SaveChanges();
@@ -54,7 +55,7 @@ namespace ProductManager.Services
                     Quantity = s.Quantity,
                     Price = s.Price
                 });
-
+            if (products is null) throw new Exception("Not Found.");
             return products;
         }
         public ProductDto GetById(Guid id)
@@ -68,11 +69,14 @@ namespace ProductManager.Services
                 Quantity = x.Quantity,
                 Price = x.Price
             }).FirstOrDefault(d => d.Id == id);
+            if (product is null) throw new Exception("Not Found.");
             return product;
         }
         public void UpdateProduct(Guid id, UpdateProductDto dto)
         {
             var product = _dbContext.Products.FirstOrDefault(x => x.Id == id);
+            if (product is null) throw new Exception("Not Found.");
+
 
             product.Quantity = dto.Quantity;
             product.Description = dto.Description;

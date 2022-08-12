@@ -5,13 +5,13 @@ namespace ProductManager.Entities
 {
     public class ProductDbContext : DbContext
     {
-        protected readonly IConfiguration _configuration;
-
-        public ProductDbContext(IConfiguration configuration)
+        public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
         {
-            _configuration = configuration;
+
         }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Product> Products { get; set; } = null!;
+        public DbSet<Shop> Shops { get; set; } = null!;
+        public DbSet<Address> Addresses { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,24 +21,10 @@ namespace ProductManager.Entities
                 mb.Property(x => x.Description).HasMaxLength(200);
                 mb.Property(x => x.Price).HasColumnType("decimal(5,2)");
             });
-            modelBuilder.Entity<CreateProductDto>(mb =>
+            modelBuilder.Entity<Address>(mb =>
             {
-                mb.Property(x => x.Name).IsRequired();
-                mb.Property(x => x.Price).IsRequired();
+                mb.HasOne(x => x.Shop).WithOne(y => y.Address).HasForeignKey<Shop>(z => z.AddressId);
             });
-            modelBuilder.Entity<UpdateProductDto>(mb =>
-            {
-                mb.Property(x => x.Id).IsRequired();
-                mb.Property(x => x.Description).HasMaxLength(200);
-                mb.Property(x => x.Name).HasMaxLength(100);
-            });
-
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(_configuration.GetConnectionString("ProductManagerDbConnectionString"));
         }
     }
-
 }
