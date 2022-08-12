@@ -4,7 +4,9 @@ namespace ProductManager.Services.Interfaces
 {
     public interface IShopService
     {
-        public int CreateShop(CreateShopDto dto);
-        public IEnumerable<ShopDto> GetAll();
+        int CreateShop(CreateShopDto dto);
+        IEnumerable<ShopDto> GetAll();
+        ShopDto GetById(int id);
+        void Delete(int id);
     }
 }
