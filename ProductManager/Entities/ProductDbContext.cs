@@ -20,11 +20,13 @@ namespace ProductManager.Entities
                 mb.Property(x => x.Name).HasMaxLength(100);
                 mb.Property(x => x.Description).HasMaxLength(200);
                 mb.Property(x => x.Price).HasColumnType("decimal(5,2)");
+                mb.HasOne(x => x.Shop).WithMany(y => y.Products).HasForeignKey(z => z.ShopId);
             });
             modelBuilder.Entity<Address>(mb =>
             {
                 mb.HasOne(x => x.Shop).WithOne(y => y.Address).HasForeignKey<Shop>(z => z.AddressId);
             });
+
         }
     }
 }
